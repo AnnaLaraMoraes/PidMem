@@ -255,14 +255,14 @@ const inicializar = () => {
             let processosTexto = "";
             bloco.processos.forEach(processo => {
                 processosTexto +=
-                    "(pid: " + processo.nome + " - tam: " + processo.tamanho + ") \t";
+                    processo.nome + " (" + processo.tamanho + ") \t\t";
             });
 
             let processosNode = document.createTextNode(processosTexto);
 
             celula1.appendChild(processosNode);
-            celula2.appendChild(tamanhoDoBlocoNode);
-            celula3.appendChild(tamanhoDisponivelNode);
+            celula2.appendChild(tamanhoDisponivelNode);
+            celula3.appendChild(tamanhoDoBlocoNode);
         });
 
         let tabelaFootRef = document.getElementById('tabela').getElementsByTagName('tfoot')[0];
