@@ -19,8 +19,8 @@ const inicializar = () => {
     };
 
     const mensagemBloco = () => {
-        alert("Bloco não inserido!");
-    }
+        alert("Processo não inserido a nenhum bloco!");
+    };
 
     const salvarValoresIniciais = () => {
         valores.tamanhoTotal = document.getElementById("tamanhoTotal").value;
@@ -34,6 +34,7 @@ const inicializar = () => {
 
         geraMemoria();
         console.log("Memoria gerada: ", memoria);
+        gerarHtml();
     };
 
     const geraMemoria = () => {
@@ -50,13 +51,12 @@ const inicializar = () => {
             memoria.push({
                 tamanhoDoBloco: numeroAleatorio,
                 tamanhoDisponivel: numeroAleatorio,
-                processos: [],
+                processos: []
             });
         }
     };
 
     const novoProcesso = () => {
-
         if (!(valores.tamanhoTotal && valores.tipoAlgoritmo)) {
             mensagemMemoria();
             return;
@@ -78,7 +78,6 @@ const inicializar = () => {
 
         memoria.map(bloco => {
             if (bloco.tamanhoDisponivel >= valores.tamanhoProcesso && podeInserir) {
-
                 podeInserir = false;
                 bloco.tamanhoDisponivel -= valores.tamanhoProcesso;
 
@@ -88,8 +87,8 @@ const inicializar = () => {
                     processos: bloco.processos.push({
                         tamanho: valores.tamanhoProcesso,
                         nome: valores.nomeProcesso
-                    }),
-                }
+                    })
+                };
             }
 
             return bloco;
@@ -98,7 +97,7 @@ const inicializar = () => {
         if (podeInserir) {
             mensagemBloco();
         }
-    }
+    };
 
     const proximoEncaixe = () => {
         let podeInserir = true;
@@ -107,11 +106,14 @@ const inicializar = () => {
         memoria.map(bloco => {
             posicaoAux += 1;
 
-            if (bloco.tamanhoDisponivel >= valores.tamanhoProcesso && podeInserir && (!valores.ultimaPosicao || posicaoAux >= valores.ultimaPosicao)) {
+            if (
+                bloco.tamanhoDisponivel >= valores.tamanhoProcesso &&
+                podeInserir &&
+                (!valores.ultimaPosicao || posicaoAux >= valores.ultimaPosicao)
+            ) {
                 valores.ultimaPosicao = posicaoAux;
                 podeInserir = false;
                 bloco.tamanhoDisponivel -= valores.tamanhoProcesso;
-
 
                 return {
                     tamanhoDoBloco: bloco.tamanhoDoBloco,
@@ -119,8 +121,8 @@ const inicializar = () => {
                     processos: bloco.processos.push({
                         tamanho: valores.tamanhoProcesso,
                         nome: valores.nomeProcesso
-                    }),
-                }
+                    })
+                };
             }
 
             if (valores.ultimaPosicao === memoria.length - 1) {
@@ -133,7 +135,7 @@ const inicializar = () => {
         if (podeInserir) {
             mensagemBloco();
         }
-    }
+    };
 
     const melhorEncaixe = () => {
         let posicaoMelhorBloco = null;
@@ -143,28 +145,29 @@ const inicializar = () => {
 
         memoria.forEach(bloco => {
             if (bloco.tamanhoDisponivel >= valores.tamanhoProcesso) {
-                valorAtual = bloco.tamanhoDisponivel - valores.tamanhoProcesso; 
+                valorAtual = bloco.tamanhoDisponivel - valores.tamanhoProcesso;
 
                 if (ultimoValor >= valorAtual) {
                     posicaoMelhorBloco = contadorBloco;
                 }
-                ultimoValor = valorAtual; 
+                ultimoValor = valorAtual;
             }
-            contadorBloco += 1; 
+            contadorBloco += 1;
         });
 
         if (posicaoMelhorBloco !== null) {
-
             memoria[posicaoMelhorBloco].processos.push({
                 tamanho: valores.tamanhoProcesso,
                 nome: valores.nomeProcesso
             });
 
-            memoria[posicaoMelhorBloco].tamanhoDisponivel = memoria[posicaoMelhorBloco].tamanhoDisponivel -= valores.tamanhoProcesso;
-        } else  {
+            memoria[posicaoMelhorBloco].tamanhoDisponivel = memoria[
+                posicaoMelhorBloco
+            ].tamanhoDisponivel -= valores.tamanhoProcesso;
+        } else {
             mensagemBloco();
         }
-    }
+    };
 
     const piorEncaixe = () => {
         let posicaoPiorBloco = null;
@@ -175,30 +178,31 @@ const inicializar = () => {
         memoria.forEach(bloco => {
             console.log(bloco.tamanhoDisponivel, ">=", valores.tamanhoProcesso);
             if (bloco.tamanhoDisponivel >= valores.tamanhoProcesso) {
-                valorAtual = bloco.tamanhoDisponivel - valores.tamanhoProcesso; 
+                valorAtual = bloco.tamanhoDisponivel - valores.tamanhoProcesso;
 
                 console.log(ultimoValor, "<=", valorAtual);
                 if (ultimoValor <= valorAtual) {
-                    console.log('pegou essa posicao do array', contadorBloco);
+                    console.log("pegou essa posicao do array", contadorBloco);
                     posicaoPiorBloco = contadorBloco;
                 }
-                ultimoValor = valorAtual; 
+                ultimoValor = valorAtual;
             }
-            contadorBloco += 1; 
+            contadorBloco += 1;
         });
 
         if (posicaoPiorBloco !== null) {
-
             memoria[posicaoPiorBloco].processos.push({
                 tamanho: valores.tamanhoProcesso,
                 nome: valores.nomeProcesso
             });
 
-            memoria[posicaoPiorBloco].tamanhoDisponivel = memoria[posicaoPiorBloco].tamanhoDisponivel -= valores.tamanhoProcesso;
-        } else  {
+            memoria[posicaoPiorBloco].tamanhoDisponivel = memoria[
+                posicaoPiorBloco
+            ].tamanhoDisponivel -= valores.tamanhoProcesso;
+        } else {
             mensagemBloco();
         }
-    }
+    };
 
     const processarDados = () => {
         switch (valores.tipoAlgoritmo) {
@@ -219,6 +223,61 @@ const inicializar = () => {
         }
 
         console.log("Processado: ", memoria);
+        gerarHtml();
+    };
+
+    const gerarHtml = () => {
+        document.getElementById("tabela").style.display = "table";
+        document.getElementById("titulo").style.display = "inherit";
+        document
+            .getElementById("tabela")
+            .getElementsByTagName("tbody")[0].innerHTML = "";
+            document
+            .getElementById("tabela")
+            .getElementsByTagName("tfoot")[0].innerHTML = "";
+
+        memoria.forEach(bloco => {
+            let tabelaRef = document
+                .getElementById("tabela")
+                .getElementsByTagName("tbody")[0];
+
+            let linha = tabelaRef.insertRow();
+
+            let celula1 = linha.insertCell(0);
+            let celula2 = linha.insertCell(1);
+            let celula3 = linha.insertCell(2);
+
+            let tamanhoDoBlocoNode = document.createTextNode(bloco.tamanhoDoBloco);
+            let tamanhoDisponivelNode = document.createTextNode(
+                bloco.tamanhoDisponivel
+            );
+
+            let processosTexto = "";
+            bloco.processos.forEach(processo => {
+                processosTexto +=
+                    "(pid: " + processo.nome + " - tam: " + processo.tamanho + ") \t";
+            });
+
+            let processosNode = document.createTextNode(processosTexto);
+
+            celula1.appendChild(processosNode);
+            celula2.appendChild(tamanhoDoBlocoNode);
+            celula3.appendChild(tamanhoDisponivelNode);
+        });
+
+        let tabelaFootRef = document.getElementById('tabela').getElementsByTagName('tfoot')[0];
+
+        let linhaFoot = tabelaFootRef.insertRow();
+
+        let celulaFoot1 = linhaFoot.insertCell(0);
+        let celulaFoot2 = linhaFoot.insertCell(1);
+
+        let tamanhoTotalNode = document.createTextNode("Tamanho Total: " + valores.tamanhoTotal);
+        let tipoAlgoritmoNode = document.createTextNode("Tipo de Algoritmo: " + valores.tipoAlgoritmo);
+
+        celulaFoot1.appendChild(tamanhoTotalNode);
+        celulaFoot2.appendChild(tipoAlgoritmoNode);
+
     };
 
     document

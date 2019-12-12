@@ -1,43 +1,105 @@
 <!DOCTYPE html>
 <html>
 <script type="text/javascript" src="script.js"></script>
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="style.css" />
 
 <body>
-<div>
-<h3>TRABALHO DE S.O.</h3>
-<h3>ALUNOS: ANNA LARA, PEDRO, VINICIUS</h3>
+  <div>
+    
 
-Tamanho Total da Memória:<br>
-<input type="number" id="tamanhoTotal" value="0">
-<br>
-<br>
+   
+    <div class="headerx">
+        <h1>TRABALHO DE S.O.</h1>
+        <h3>ALUNOS: Anna Lara, Pedro, Vinicius</h3>
+      </div>
 
 
-Tipo de Algoritmo:<br>
-<select id="tipoAlgoritmo">
-    <option value="">Selecione</option>
-    <option value="primeiro">Primeiro Encaixe</option>
-    <option value="proximo">Próximo Encaixe</option>
-    <option value="melhor">Melhor Encaixe</option>
-    <option value="pior">Pior Encaixe</option>
-  </select>
-  <br>
-  <br>
-  <button id="salvarValoresIniciais">Gerar Memória</button>
 
-  <br><br><br><br>
 
-Nome do Processo:<br>
-<input type="text" id="nomeProcesso" value="">
-<br>
-<br>
-Tamanho do Processo:<br>
-<input type="number" id="tamanhoProcesso" value="0">
-<br>
-<br>
-<button id="novoProcesso">Novo processo</button>
+    <div id="conteiner">
 
-</div>
+      <div class="card">
+        <div class="header">
+          Memória
+        </div>
+
+        <div class="container">
+          <div id="formulario1">
+            Tamanho Total da Memória:<br>
+            <input type="number" id="tamanhoTotal" value="0">
+            <br>
+            <br>
+
+
+            Tipo de Algoritmo:<br>
+            <select id="tipoAlgoritmo">
+              <option value="">Selecione</option>
+              <option value="primeiro">Primeiro Encaixe</option>
+              <option value="proximo">Próximo Encaixe</option>
+              <option value="melhor">Melhor Encaixe</option>
+              <option value="pior">Pior Encaixe</option>
+            </select>
+            <br>
+            <br>
+            <button id="salvarValoresIniciais">Gerar Memória</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="header">
+          Processos
+        </div>
+
+        <div class="container">
+          <div id="formulario2">
+            Nome do Processo:<br>
+            <input type="text" id="nomeProcesso" value="">
+            <br>
+            <br>
+            Tamanho do Processo:<br>
+            <input type="number" id="tamanhoProcesso" value="0">
+            <br>
+            <br>
+            <button id="novoProcesso">Novo processo</button>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+
+    <br><br><br>
+
+    
+
+    <h2 id="titulo">Memória</h2>
+    <table id="tabela">
+       
+      <thead>
+        <tr>
+          <th>Processos</th>
+          <th>Tamanho do Bloco</th>
+          <th>Espaço livre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+        </tr>
+        <tfoot>
+    </table>
+
+  </div>
 </body>
+
 </html>
